@@ -10,6 +10,7 @@ import { DiReact } from 'react-icons/di'
 import { Link } from 'react-router-dom'
 const SideBar = (props) => {
   const { image, collapsed, toggled, handleToggleSidebar } = props
+  console.log(toggled,handleToggleSidebar)
   return (
     <>
       <Sidebar

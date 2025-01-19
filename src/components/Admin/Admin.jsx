@@ -7,7 +7,7 @@ import { Outlet } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 const Admin = (props) => {
   const [collapsed, setCollapsed] = useState(false)
-  const [img, setImg] = useState(!sidebarBg)
+  const [img, setImg] = useState()
   const [bool, setBool] = useState(false)
   const toggle = () => {
     bool?hideImage():showImage()
@@ -18,7 +18,7 @@ const Admin = (props) => {
   }
   const hideImage = () => {
     setBool(false)
-    setImg(!sidebarBg)
+    setImg()
   }
   return (
     <>
@@ -28,12 +28,12 @@ const Admin = (props) => {
             image={img}/>
         </div>
         <div className="admin-content">
-          {/* <FaBars onClick={() => setCollapsed(!collapsed)} />
+          <FaBars onClick={() => setCollapsed(!collapsed)} />
           <FaFileImage onClick={() => toggle()}/>
           <div className="form-check form-switch">
             <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onChange={() => toggle()}/>
             <label className="form-check-label" htmlFor="flexSwitchCheckDefault">image</label>
-          </div> */}
+          </div>
           <div className="admin-header">
             <FaBars onClick={() => setCollapsed(!collapsed)} />
           </div>
