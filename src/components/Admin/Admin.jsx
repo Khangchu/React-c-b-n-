@@ -4,7 +4,6 @@ import { FaBars, FaFileImage } from 'react-icons/fa'
 import './admin.scss'
 import sidebarBg from '../../assets/sidebar.jpg'
 import { Outlet } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
 const Admin = (props) => {
   const [collapsed, setCollapsed] = useState(false)
   const [img, setImg] = useState()
@@ -41,19 +40,6 @@ const Admin = (props) => {
             <Outlet/>
           </div>
         </div>
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-
-        />
       </div>
     </>
   )

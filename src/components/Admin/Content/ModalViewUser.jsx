@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+
 import { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
@@ -6,21 +6,21 @@ import _ from 'lodash'
 function ModalViewUser(props) {
   const { showViewUser, setShowViewUser, viewUser } = props
   useEffect(() => {
-    if(!_.isEmpty(viewUser)) {
-    setEmail(viewUser.email)
-    setRole(viewUser.role)
-    setImage(viewUser.image)
-    setUsername(viewUser.username)
-    if(viewUser.image)
-    {
-      setPreviewImage(`data:image/jpeg;base64,${viewUser.image}`)
-    }
+    if (!_.isEmpty(viewUser)) {
+      setEmail(viewUser.email)
+      setRole(viewUser.role)
+      setImage(viewUser.image)
+      setUsername(viewUser.username)
+      if (viewUser.image)
+      {
+        setPreviewImage(`data:image/jpeg;base64,${viewUser.image}`)
+      }
     }
   }, [viewUser])
 
   const setdata = () => {
     setShowViewUser(false)
-    if(previewImage) {
+    if (previewImage) {
       setPreviewImage()
     }
   }
@@ -29,7 +29,7 @@ function ModalViewUser(props) {
   const [username, setUsername] = useState()
   const [role, setRole] = useState()
   const [image, setImage] = useState()
-  const [password,setPassword]= useState()
+  const [password, setPassword]= useState()
   const [previewImage, setPreviewImage] = useState('')
   return (
     <>
@@ -63,7 +63,7 @@ function ModalViewUser(props) {
                 className="form-control"
                 id="inputPassword4"
                 value={password}
-            />
+              />
             </div>
             <div className="col-md-6">
               <label htmlFor="inputCity" className="form-label">User Name</label>
@@ -72,13 +72,13 @@ function ModalViewUser(props) {
                 className="form-control"
                 id="inputCity"
                 value={username}
-                />
+              />
             </div>
             <div className="col-md-4">
               <label htmlFor="inputState" className="form-label">Role</label>
               <select id="inputState" className="form-select" value={role}>
-              <option value="USER">USER</option>
-              <option value="ADMIN">ADMIN</option>
+                <option value="USER">USER</option>
+                <option value="ADMIN">ADMIN</option>
               </select>
             </div>
             <div className='col-md-12 img-preview'>

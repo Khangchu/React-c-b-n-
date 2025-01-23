@@ -5,7 +5,7 @@ import { FaRegPlusSquare } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import { postCreateNewUser } from '../../../services/apiServices'
 function Example(props) {
-  const { showAddUser, setShowAddUser, fetchListUser } = props
+  const { showAddUser, setShowAddUser, fetchListUser, setCurrentPage } = props
   const setdata = () => {
     setShowAddUser(false)
     setEmail('')
@@ -56,7 +56,8 @@ function Example(props) {
     {
       toast.success(res.EM)
       setdata()
-      await fetchListUser()
+      setCurrentPage(1)
+      await fetchListUser(1)
     }
     if (res && res.EC !== 0 ) {
       toast.error(res.EM)

@@ -1,7 +1,7 @@
 
 import { useState } from 'react'
 const tableUser = (props) => {
-  const { listUser, setShowUpdateUser,handleClickViewUser, handleClickDeleteUser} = props
+  const { listUser, setShowUpdateUser, handleClickViewUser, handleClickDeleteUser } = props
   return (
     <>
       <div>
@@ -25,7 +25,7 @@ const tableUser = (props) => {
                     <td>{list.role}</td>
                     <td><button className='btn btn-primary' onClick={() => handleClickViewUser(list)}>View</button>
                       <button className='btn btn-warning mx-3'onClick={() => setShowUpdateUser(list)}>Update</button>
-                      <button className='btn btn-danger' onClick={() =>  handleClickDeleteUser(list)}>Delete</button></td>
+                      <button className='btn btn-danger' onClick={() => handleClickDeleteUser(list)}>Delete</button></td>
                   </tr>
                 </tbody>
               </>

@@ -7,15 +7,15 @@ import { toast } from 'react-toastify'
 import { putUpdateUser } from '../../../services/apiServices'
 import _ from 'lodash'
 function modalUpdateUser(props) {
-  const { showUpdateUser, setShowUpdateUser, updateUser ,fetchListUser } = props
+  const { showUpdateUser, setShowUpdateUser, updateUser, fetchListUser, setCurrentPage, currentPage } = props
   useEffect(() => {
-    if(!_.isEmpty(updateUser)) {
-    setEmail(updateUser.email)
-    setRole(updateUser.role)
-    setImage(updateUser.image)
-    setUsername(updateUser.username)
-    setId(updateUser.id)
-    setPreviewImage(`data:image/jpeg;base64,${updateUser.image}`)
+    if (!_.isEmpty(updateUser)) {
+      setEmail(updateUser.email)
+      setRole(updateUser.role)
+      setImage(updateUser.image)
+      setUsername(updateUser.username)
+      setId(updateUser.id)
+      setPreviewImage(`data:image/jpeg;base64,${updateUser.image}`)
 
     }
   }, [updateUser])
@@ -29,7 +29,7 @@ function modalUpdateUser(props) {
   const [username, setUsername] = useState()
   const [role, setRole] = useState()
   const [image, setImage] = useState()
-  const [id,setId] = useState()
+  const [id, setId] = useState()
   const [previewImage, setPreviewImage] = useState('')
 
   const handleUploadImage = (event) => {
@@ -44,7 +44,7 @@ function modalUpdateUser(props) {
   }
 
   const handSubmitCreateUser = async() => {
-    let res = await putUpdateUser( id,username, role, image)
+    let res = await putUpdateUser( id, username, role, image)
     console.log('>>>check:', res.EM)
     if (res&&res.EC === 0 )
     {
@@ -54,7 +54,8 @@ function modalUpdateUser(props) {
     if (res && res.EC !== 0 ) {
       toast.error(res.EM)
     }
-    fetchListUser()
+    // setCurrentPage(1)
+    await fetchListUser(currentPage)
   }
 
   return (
@@ -89,7 +90,7 @@ function modalUpdateUser(props) {
                 className="form-control"
                 id="inputPassword4"
                 value={password}
-            />
+              />
             </div>
             <div className="col-md-6">
               <label htmlFor="inputCity" className="form-label">User Name</label>

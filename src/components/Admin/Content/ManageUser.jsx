@@ -3,19 +3,23 @@ import './ManageUser.scss'
 import { FcPlus } from 'react-icons/fc'
 import { useState, useEffect } from 'react'
 import TableUser from './TableUser.jsx'
-import { getListUser } from '../../../services/apiServices'
+import { getListUser, getUserWithPaginate } from '../../../services/apiServices'
 import ModalUpdateUser from './ModalUpdateUser'
 import ModalViewUser from './ModalViewUser.jsx'
 import ModalDeleteUser from './ModalDeleteUser.jsx'
+import TableUserPaginate from './TableUserPaginate.jsx'
 const ManageUser = (props) => {
+  const limitUser =5
+  const [pageCount, setPageCount] = useState(0)
+  const [currentPage, setCurrentPage] =useState(1)
   const [showUpdateUser, setShowUpdateUser] = useState(false)
-  const [showViewUser,setShowViewUser] = useState(false)
-  const [viewUser,setViewUser] = useState({})
+  const [showViewUser, setShowViewUser] = useState(false)
+  const [viewUser, setViewUser] = useState({})
   const [listUser, setListUser] = useState([])
   const [show, setShow] = useState(false)
   const [updateUser, setUpateUser] = useState({})
-  const [showDeleteUser,setShowDeleteUser] = useState(false)
-  const [deleteUser,setdeleteUser] = useState({})
+  const [showDeleteUser, setShowDeleteUser] = useState(false)
+  const [deleteUser, setdeleteUser] = useState({})
   const handleShow = () => setShow(true)
   const handleClickBtnUpdate = (user) => {
     setShowUpdateUser(true)
@@ -29,17 +33,26 @@ const ManageUser = (props) => {
   const handleClickDeleteUser = (user) => {
     setShowDeleteUser(true)
     setdeleteUser(user)
-  
+
   }
   useEffect( () => {
-    fetchListUser()
+    fetchListUserWithPaginate(1)
   }, [])
-  const fetchListUser = async () => {
-    let res = await getListUser()
-    // console.log('>>>check: ', res)
+  // const fetchListUser = async () => {
+  //   let res = await getListUser()
+  //   // console.log('>>>check: ', res)
+  //   if (res&&res.EC === 0)
+  //   {
+  //     setListUser(res.DT)
+  //   }
+  // }
+  const fetchListUserWithPaginate = async (page) => {
+    let res = await getUserWithPaginate(page, limitUser)
+
     if (res&&res.EC === 0)
     {
-      setListUser(res.DT)
+      setListUser(res.DT.users)
+      setPageCount(res.DT.totalPages)
     }
   }
   return (
@@ -55,33 +68,47 @@ const ManageUser = (props) => {
               Add new users</button>
           </div>
           <div className="table-users-container">
-            <TableUser listUser ={listUser}
+            {/* <TableUser listUser ={listUser}
               setShowUpdateUser = {handleClickBtnUpdate}
               handleClickViewUser = {handleClickViewUser}
               handleClickDeleteUser = {handleClickDeleteUser}
-              />
+              /> */}
+            <TableUserPaginate listUser ={listUser}
+              setShowUpdateUser = {handleClickBtnUpdate}
+              handleClickViewUser = {handleClickViewUser}
+              handleClickDeleteUser = {handleClickDeleteUser}
+              fetchListUserWithPaginate = {fetchListUserWithPaginate}
+              pageCount = {pageCount}
+              currentPage = {currentPage}
+              setCurrentPage = {setCurrentPage}
+            />
           </div>
           <Example
             showAddUser = {show}
             setShowAddUser = {setShow}
-            fetchListUser ={fetchListUser}
+            fetchListUser ={fetchListUserWithPaginate}
+            setCurrentPage = {setCurrentPage}
           />
           <ModalUpdateUser
             showUpdateUser={showUpdateUser}
             setShowUpdateUser = {setShowUpdateUser}
             updateUser = {updateUser}
-            fetchListUser ={fetchListUser}
+            fetchListUser ={fetchListUserWithPaginate}
+            setCurrentPage = {setCurrentPage}
+            currentPage = {currentPage}
           />
-          <ModalViewUser 
-          showViewUser={showViewUser}
-          setShowViewUser={setShowViewUser}
-          viewUser = {viewUser}
+          <ModalViewUser
+            showViewUser={showViewUser}
+            setShowViewUser={setShowViewUser}
+            viewUser = {viewUser}
+            setCurrentPage = {setCurrentPage}
           />
           <ModalDeleteUser
-          showDeleteUser = {showDeleteUser}
-          setShowDeleteUser = {setShowDeleteUser}
-          deleteUser = {deleteUser}
-          fetchListUser ={fetchListUser}
+            showDeleteUser = {showDeleteUser}
+            setShowDeleteUser = {setShowDeleteUser}
+            deleteUser = {deleteUser}
+            fetchListUser ={fetchListUserWithPaginate}
+            setCurrentPage = {setCurrentPage}
           />
         </div>
       </div>

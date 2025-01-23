@@ -13,16 +13,24 @@ const getListUser = () => {
   return axios.get('api/v1/participant/all')
 }
 
-const putUpdateUser = (id,username, role, image) =>{
+const putUpdateUser = (id, username, role, image) => {
   const form = new FormData()
-  form.append('id',id)
+  form.append('id', id)
   form.append('username', username)
   form.append('role', role)
-  form.append('userImage', image) 
-  return axios.put('api/v1/participant',form)
+  form.append('userImage', image)
+  return axios.put('api/v1/participant', form)
 }
 
 const delDeleteUser = (userId) => {
-  return axios.delete('api/v1/participant',{data: {id : userId}})
+  return axios.delete('api/v1/participant', { data: { id : userId } })
 }
-export { postCreateNewUser, getListUser,putUpdateUser,delDeleteUser}
+
+const getUserWithPaginate = (page, limt) => {
+  return axios.get(`api/v1/participant?page=${page}&limit=${limt}`)
+}
+const getLogin = (email, password) => {
+  return axios.post('api/v1/login', { email : email, password: password })
+}
+
+export { postCreateNewUser, getListUser, putUpdateUser, delDeleteUser, getUserWithPaginate, getLogin }
