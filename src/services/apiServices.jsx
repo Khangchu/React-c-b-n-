@@ -33,4 +33,8 @@ const getLogin = (email, password) => {
   return axios.post('api/v1/login', { email : email, password: password })
 }
 
-export { postCreateNewUser, getListUser, putUpdateUser, delDeleteUser, getUserWithPaginate, getLogin }
+const postRegister = (email, password, username) => {
+  return axios.post('api/v1/register', { email: email, password: password, username: username })
+}
+
+export { postCreateNewUser, getListUser, putUpdateUser, delDeleteUser, getUserWithPaginate, getLogin, postRegister }

@@ -2,13 +2,16 @@ import { useState } from 'react'
 import './Login.scss'
 import { getLogin } from '../../services/apiServices'
 import { useNavigate } from 'react-router-dom'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 const Login = (props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
   const hanldeClickBackHome = () => {
     navigate('/')
+  }
+  const handleClickRegister = () => {
+    navigate('Register')
   }
   const handleLogin = async() => {
     let res = await getLogin(email, password)
@@ -29,7 +32,7 @@ const Login = (props) => {
         <div className='header'>
           <span>
                 Don&apos;t have an account yet?
-            <button>Sign Up</button>
+            <button onClick={() => handleClickRegister()}>Sign Up</button>
           </span>
         </div>
         <div className="title col-4 mx-auto">
